@@ -1,5 +1,5 @@
 import numpy as np
-from Classes import TFIDFVectorizer, CosineSimilarity 
+from TFIDF import TFIDFVectorizer, CosineSimilarity 
 
 q = "Should I use two RAM sticks instead of one"
 tag = "two ram sticks vs one" 
