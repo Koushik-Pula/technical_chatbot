@@ -1,9 +1,4 @@
 flask 
-tensorflow
-keras
-beautifulsoup4
 requests
 jsonify
 numpy
-pickle
-scikit-learn
