@@ -1,3 +1,6 @@
-asgn/
+nlp/
 **/node_modules/
-__pycache__
+__pycache__ 
+test.ipynb 
+
+testing.py
