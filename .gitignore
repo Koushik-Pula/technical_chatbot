@@ -1,6 +1,5 @@
 nlp/
 **/node_modules/
 __pycache__ 
-test.ipynb 
 
 testing.py
