@@ -1,8 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
+
 from spell_corrector import get_close_matches
 from flask_cors import CORS 
 import json
 from trie import Trie
+from backbone import get_predicted_class, get_response_for_tag
 
 app = Flask(__name__)
 
@@ -12,9 +14,7 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 with open("../corpus/data_mid_2.json", 'r') as file:
     data = json.load(file)
 
-def chatbot_response(user_input):
-    print(user_input)
-    return user_input
+
 
 
 
@@ -32,10 +32,12 @@ def chat():
     if not user_input:
         return jsonify({"error": "No message provided"}), 400
     
-    response = chatbot_response(user_input)
-    return jsonify({"response": response})
 
-from flask import make_response
+    l = get_predicted_class(user_input) 
+    respnse_for_tag = get_response_for_tag(l, user_input)
+    print(respnse_for_tag)
+    return jsonify({"response": respnse_for_tag})
+
 
 @app.route('/suggest', methods=['GET'])
 def suggest():
