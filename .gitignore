@@ -1,5 +1,6 @@
 nlp/
 **/node_modules/
 __pycache__ 
-
+final_runnable_environment
+virt
 testing.py

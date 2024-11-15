@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import '../styles/userpage.css';
+import ChatMessage from './ChatMessage';
 
 function UserPage() {
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [spellCorrections, setSpellCorrections] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(-1);
+    const [chatMessages, setChatMessages] = useState([
+        { sender: "bot", text: "Hello! How can I assist you today?" }
+    ]);
 
     // Fetch suggestions based on prefix
     const fetchSuggestions = async (prefix) => {
@@ -72,12 +76,48 @@ function UserPage() {
         }
     };
 
+    const sendUserInput = async (inputValue) => {
+        if (inputValue.length > 3) {
+            // Add the user's message to chat history
+            setChatMessages((prevMessages) => [...prevMessages, { sender: "user", text: inputValue }]);
+            
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/api/chat`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: inputValue })
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    // Add the bot's response to chat history
+                    setChatMessages((prevMessages) => [...prevMessages, { sender: "bot", text: data.response }]);
+                } else {
+                    console.error("Error:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error sending user input:", error);
+            }
+        }
+    };
+
+    const handleSend = () => {
+        if (inputValue.trim() !== "") {
+            sendUserInput(inputValue);
+            setInputValue("");
+        }
+    };
+
     return (
         <div className="UserPage">
             <div className="chat-container">
                 <div className="chat-header"><h2>TechHelp</h2></div>
                 <div className="chat-messages" id="chatMessages">
-                    <div className="message bot-message">Hello! How can I assist you today?</div>
+                    {chatMessages.map((message, index) => (
+                        <ChatMessage key={index} sender={message.sender} text={message.text} />
+                    ))}
                 </div>
                 <div className="chat-input">
                     <input
@@ -112,7 +152,7 @@ function UserPage() {
                             </div>
                         ))}
                     </div>
-                    <button>Send</button>
+                    <button onClick={handleSend}>Send</button>
                 </div>
             </div>
         </div>

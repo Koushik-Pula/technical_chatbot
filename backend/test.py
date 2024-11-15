@@ -9,6 +9,7 @@ from backbone import get_predicted_class, get_response_for_tag
 app = Flask(__name__)
 
 
+
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
 with open("../corpus/data_mid_2.json", 'r') as file:
