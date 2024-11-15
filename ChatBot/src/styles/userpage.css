@@ -148,6 +148,48 @@
     color: white;
 }
 
+/* Style for the spell-corrections container */
+.spell-corrections-container {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title for the spell corrector suggestions */
+.spell-corrections-container h4 {
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 8px;
+}
+
+/* Individual correction items */
+.correction-item {
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Normal state */
+.correction-item:hover {
+    background-color: #e0f7fa; /* Light cyan hover effect */
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+/* Highlighted or active state */
+.correction-item.highlighted {
+    background-color: #00796b; /* Teal color for active state */
+    color: #fff; /* White text for contrast */
+}
+
+/* Add spacing between suggestions and the input box */
+.chat-input {
+    margin-bottom: 20px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

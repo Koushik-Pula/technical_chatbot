@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from difflib import get_close_matches 
 from flask_cors import CORS 
 import json
 from trie import Trie
@@ -14,6 +15,8 @@ with open("../corpus/data_mid_2.json", 'r') as file:
 def chatbot_response(user_input):
     print(user_input)
     return user_input
+
+
 
 # Initialize the Trie
 trie = Trie()
@@ -40,6 +43,18 @@ def suggest():
     suggestions = trie.search_prefix(prefix)
     response = make_response(jsonify(suggestions))
     response.headers.add('Access-Control-Allow-Origin', '*')  
+    return response
+
+@app.route('/spellcorrect', methods=['GET'])
+def spell_correct():
+    word = request.args.get('word', "").strip().lower()
+    if not word:
+        return jsonify([])
+
+    # Find closest matches based on edit distance 
+    corrections = get_close_matches(word, words, n=3, cutoff=0.6)  # Adjust cutoff for tolerance
+    response = make_response(jsonify(corrections))
+    response.headers.add('Access-Control-Allow-Origin', '*') 
     return response
 
 if __name__ == "__main__":

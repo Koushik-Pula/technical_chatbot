@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import '../styles/userpage.css';
 
 function UserPage() {
-    const [inputValue, setInputValue] = useState(""); // For input field value
-    const [suggestions, setSuggestions] = useState([]); // Suggestions array
-    const [currentIndex, setCurrentIndex] = useState(-1); // Index for navigation
+    const [inputValue, setInputValue] = useState("");
+    const [suggestions, setSuggestions] = useState([]);
+    const [spellCorrections, setSpellCorrections] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(-1);
 
-    // Fetch suggestions from Flask backend
+    // Fetch suggestions based on prefix
     const fetchSuggestions = async (prefix) => {
         if (prefix.length > 0) {
             try {
                 const response = await fetch(`http://127.0.0.1:5000/suggest?prefix=${prefix}`);
                 const data = await response.json();
-                console.log("Suggestions fetched:", data);
                 setSuggestions(data);
             } catch (error) {
                 console.error("Error fetching suggestions:", error);
@@ -21,14 +21,31 @@ function UserPage() {
             setSuggestions([]);
         }
     };
-    
+
+    // Fetch spell corrections based on input word
+    const fetchSpellCorrections = async (word) => {
+        if (word.length > 0) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/spellcorrect?word=${word}`);
+                const data = await response.json();
+                setSpellCorrections(data);
+            } catch (error) {
+                console.error("Error fetching spell corrections:", error);
+            }
+        } else {
+            setSpellCorrections([]);
+        }
+    };
+
     // Handle input changes
     const handleInputChange = (event) => {
         const value = event.target.value;
         setInputValue(value);
+
         const lastWord = value.split(" ").pop(); // Extract last word
-        fetchSuggestions(lastWord);
-        setCurrentIndex(-1); // Reset index on input change
+        fetchSuggestions(lastWord); // Fetch suggestions
+        fetchSpellCorrections(lastWord); // Fetch spell corrections
+        setCurrentIndex(-1); // Reset index
     };
 
     // Handle suggestion selection
@@ -38,6 +55,7 @@ function UserPage() {
         words.push(suggestion); // Add the selected suggestion
         setInputValue(words.join(" ")); // Update input field
         setSuggestions([]); // Clear suggestions
+        setSpellCorrections([]); // Clear corrections
     };
 
     // Handle keyboard navigation
@@ -52,31 +70,6 @@ function UserPage() {
             handleSuggestionClick(suggestions[currentIndex]);
             event.preventDefault(); // Prevent form submission
         }
-    };
-
-    // Send the message to the backend
-    const sendMessage = () => {
-        if (!inputValue.trim()) return;
-
-        const chatMessages = document.getElementById("chatMessages");
-        chatMessages.innerHTML += `<div class="message user-message">${inputValue}</div>`;
-
-        fetch("http://127.0.0.1:5000/api/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ message: inputValue }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.response) {
-                    chatMessages.innerHTML += `<div class="message bot-message">${data.response}</div>`;
-                }
-                setInputValue(""); // Clear input field
-                setSuggestions([]); // Clear suggestions
-            })
-            .catch((err) => console.error("Error sending message:", err));
     };
 
     return (
@@ -95,43 +88,31 @@ function UserPage() {
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                     />
-                    {/* <div className="suggestions-container">
-                        {suggestions.map((suggestion, index) => (
+                    <div className="suggestions-container">
+                        {suggestions.slice(0, 5).map((suggestion, index) => (
                             <div
                                 key={index}
                                 className={`suggestion-item ${index === currentIndex ? "highlighted" : ""}`}
                                 onClick={() => handleSuggestionClick(suggestion)}
+                                onMouseEnter={() => setCurrentIndex(index)}
                             >
                                 {suggestion}
                             </div>
                         ))}
-                    </div> */}
-                    {/* <div className="suggestions-container">
-    {suggestions.map((suggestion, index) => (
-        <div
-            key={index}
-            className={`suggestion-item ${index === currentIndex ? "highlighted" : ""}`}
-            onClick={() => handleSuggestionClick(suggestion)}
-            onMouseEnter={() => setCurrentIndex(index)} // Update index on hover for better UX
-        >
-            {suggestion}
-        </div>
-    ))}
-</div> */}
-<div className="suggestions-container">
-    {suggestions.slice(0, 5).map((suggestion, index) => (
-        <div
-            key={index}
-            className={`suggestion-item ${index === currentIndex ? "highlighted" : ""}`}
-            onClick={() => handleSuggestionClick(suggestion)}
-            onMouseEnter={() => setCurrentIndex(index)} // Update index on hover for better UX
-        >
-            {suggestion}
-        </div>
-    ))}
-</div>
-
-                    <button onClick={sendMessage}>Send</button>
+                    </div>
+                    <div className="spell-corrections-container">
+                        <h4>Did you mean:</h4>
+                        {spellCorrections.map((correction, index) => (
+                            <div
+                                key={index}
+                                className="correction-item"
+                                onClick={() => handleSuggestionClick(correction)}
+                            >
+                                {correction}
+                            </div>
+                        ))}
+                    </div>
+                    <button>Send</button>
                 </div>
             </div>
         </div>
