@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from difflib import get_close_matches 
+from spell_corrector import get_close_matches
 from flask_cors import CORS 
 import json
 from trie import Trie
