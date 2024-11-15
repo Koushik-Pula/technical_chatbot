@@ -1,25 +1,27 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask_cors import CORS 
 import json
-
-
-
-
+from trie import Trie
 
 app = Flask(__name__)
+
+
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
 with open("../corpus/data_mid_2.json", 'r') as file:
     data = json.load(file)
 
-
-
-
 def chatbot_response(user_input):
-    
     print(user_input)
     return user_input
 
+# Initialize the Trie
+trie = Trie()
+with open('../corpus/words.json', 'r') as file:
+    words = json.load(file)
+
+for word in words:
+    trie.insert(word)
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
@@ -29,5 +31,16 @@ def chat():
     
     response = chatbot_response(user_input)
     return jsonify({"response": response})
+
+from flask import make_response
+
+@app.route('/suggest', methods=['GET'])
+def suggest():
+    prefix = request.args.get('prefix', '')
+    suggestions = trie.search_prefix(prefix)
+    response = make_response(jsonify(suggestions))
+    response.headers.add('Access-Control-Allow-Origin', '*')  
+    return response
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -10,9 +10,9 @@
 --> Starting the backend server
     * navigate to "cd backend". 
     * Install the required packages using the command "pip/pip3 install -r requirements.txt". (Preferred to install in inside a virtual environmet, to overcome the bugs of overriding) 
-    * Start the server with command "python/python3 test.py". 
+    * Start the server with command "python/python3 test.py".
 
-Use our techbot after setting up the front-end and backend running successfully.   
+Use our techbot after setting up the front-end and backend running successfully.
 
 
 

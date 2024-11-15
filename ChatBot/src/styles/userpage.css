@@ -1,10 +1,9 @@
-/* UserPage.css */
-
 .UserPage {
     padding: 20px;
     height: 100vh; /* Set full height of the viewport */
     display: flex;
     flex-direction: column;
+    background-color: #f4f4f9; /* Soft background color for the entire page */
 }
 
 .chat-container {
@@ -15,30 +14,47 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    width: 600px; /* Set a max width for better readability */
+    width: 100%;
+    max-width: 600px; /* Set a max width for better readability */
     margin: auto; /* Center the chat container */
 }
 
 .chat-header {
     background-color: #ee4343;
     color: white;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
-    font-size: 1.5em; /* Increased font size for better visibility */
+    font-size: 1.8em; /* Increased font size for better visibility */
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
 }
 
 .chat-messages {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
     overflow-y: auto;
     border-bottom: 1px solid #ccc;
+    background-color: #fafafa; /* Subtle background for messages */
+    scrollbar-width: thin;
+    scrollbar-color: #ee4343 #f4f4f9;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #ee4343;
+    border-radius: 10px;
 }
 
 .message {
     margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 15px;
+    border-radius: 10px;
     max-width: 75%;
+    word-wrap: break-word;
+    font-size: 1em; /* Ensure readable font size */
     position: relative;
 }
 
@@ -47,38 +63,111 @@
     color: white;
     align-self: flex-end;
     margin-left: auto;
+    border-top-right-radius: 0;
 }
 
 .bot-message {
     background-color: #e9ecef;
     color: #333;
     align-self: flex-start;
+    border-top-left-radius: 0;
 }
 
 .chat-input {
     display: flex;
-    padding: 10px;
+    padding: 15px;
     background-color: #f8f9fa; /* Light background for input area */
+    position: relative;
+    border-top: 2px solid #ccc;
 }
 
 .chat-input input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    font-size: 1em;
+}
+
+.chat-input input:focus {
+    outline: none;
+    border-color: #ee4343;
+    box-shadow: 0 0 5px rgba(238, 67, 67, 0.5);
 }
 
 .chat-input button {
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
     border-radius: 5px;
     background-color: #ee4343;
     color: white;
+    font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .chat-input button:hover {
-    background-color: #ee4343;
+    background-color: #d13a3a;
+    transform: translateY(-2px);
+}
+
+.chat-input button:active {
+    transform: translateY(0);
+}
+
+.suggestions-container {
+    position: absolute;
+    bottom: 100%; /* Position it directly above the input */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: calc(5 * 40px); /* Limit height to fit 5 items */
+    overflow-y: auto; /* Allow scrolling if necessary */
+    z-index: 10; /* Ensure suggestions are above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s;
+    font-size: 0.9em; /* Slightly smaller font size for suggestions */
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
+
+.suggestion-item.highlighted {
+    background-color: #007bff;
+    color: white;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 90%;
+    }
+
+    .chat-header {
+        font-size: 1.5em;
+    }
+
+    .chat-input input {
+        font-size: 0.9em;
+    }
+
+    .chat-input button {
+        font-size: 0.9em;
+    }
+
+    .message {
+        font-size: 0.9em;
+    }
 }
