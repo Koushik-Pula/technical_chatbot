@@ -11,7 +11,6 @@ function UserPage() {
         { sender: "bot", text: "Hello! How can I assist you today?" }
     ]);
 
-    // Fetch suggestions based on prefix
     const fetchSuggestions = async (prefix) => {
         if (prefix.length > 0) {
             try {
@@ -26,7 +25,6 @@ function UserPage() {
         }
     };
 
-    // Fetch spell corrections based on input word
     const fetchSpellCorrections = async (word) => {
         if (word.length > 0) {
             try {
@@ -41,28 +39,25 @@ function UserPage() {
         }
     };
 
-    // Handle input changes
     const handleInputChange = (event) => {
         const value = event.target.value;
         setInputValue(value);
 
-        const lastWord = value.split(" ").pop(); // Extract last word
-        fetchSuggestions(lastWord); // Fetch suggestions
-        fetchSpellCorrections(lastWord); // Fetch spell corrections
-        setCurrentIndex(-1); // Reset index
+        const lastWord = value.split(" ").pop();
+        fetchSuggestions(lastWord);
+        fetchSpellCorrections(lastWord); 
+        setCurrentIndex(-1); 
     };
 
-    // Handle suggestion selection
     const handleSuggestionClick = (suggestion) => {
         const words = inputValue.split(" ");
-        words.pop(); // Remove the current prefix
-        words.push(suggestion); // Add the selected suggestion
-        setInputValue(words.join(" ")); // Update input field
-        setSuggestions([]); // Clear suggestions
-        setSpellCorrections([]); // Clear corrections
+        words.pop(); 
+        words.push(suggestion); 
+        setInputValue(words.join(" ")); 
+        setSuggestions([]);
+        setSpellCorrections([]); 
     };
 
-    // Handle keyboard navigation
     const handleKeyDown = (event) => {
         if (suggestions.length === 0) return;
 
@@ -72,13 +67,12 @@ function UserPage() {
             setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
         } else if (event.key === "Enter" && currentIndex >= 0) {
             handleSuggestionClick(suggestions[currentIndex]);
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
         }
     };
 
     const sendUserInput = async (inputValue) => {
         if (inputValue.length > 3) {
-            // Add the user's message to chat history
             setChatMessages((prevMessages) => [...prevMessages, { sender: "user", text: inputValue }]);
             
             try {
@@ -92,7 +86,7 @@ function UserPage() {
     
                 if (response.ok) {
                     const data = await response.json();
-                    // Add the bot's response to chat history
+
                     setChatMessages((prevMessages) => [...prevMessages, { sender: "bot", text: data.response }]);
                 } else {
                     console.error("Error:", response.statusText);

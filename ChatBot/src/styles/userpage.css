@@ -1,13 +1,13 @@
 .UserPage {
     padding: 20px;
-    height: 100vh; /* Set full height of the viewport */
+    height: 100vh; 
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f9; /* Soft background color for the entire page */
+    background-color: #f4f4f9; 
 }
 
 .chat-container {
-    flex: 1; /* Make the chat container take all available space */
+    flex: 1;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: white;
@@ -15,8 +15,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 600px; /* Set a max width for better readability */
-    margin: auto; /* Center the chat container */
+    max-width: 600px; 
+    margin: auto; 
 }
 
 .chat-header {
@@ -24,7 +24,7 @@
     color: white;
     padding: 15px;
     text-align: center;
-    font-size: 1.8em; /* Increased font size for better visibility */
+    font-size: 1.8em;
     font-weight: bold;
     border-bottom: 2px solid #ccc;
 }
@@ -34,7 +34,7 @@
     padding: 15px;
     overflow-y: auto;
     border-bottom: 1px solid #ccc;
-    background-color: #fafafa; /* Subtle background for messages */
+    background-color: #fafafa; 
     scrollbar-width: thin;
     scrollbar-color: #ee4343 #f4f4f9;
 }
@@ -54,7 +54,7 @@
     border-radius: 10px;
     max-width: 75%;
     word-wrap: break-word;
-    font-size: 1em; /* Ensure readable font size */
+    font-size: 1em; 
     position: relative;
 }
 
@@ -76,7 +76,7 @@
 .chat-input {
     display: flex;
     padding: 15px;
-    background-color: #f8f9fa; /* Light background for input area */
+    background-color: #f8f9fa; 
     position: relative;
     border-top: 2px solid #ccc;
 }
@@ -118,15 +118,15 @@
 
 .suggestions-container {
     position: absolute;
-    bottom: 100%; /* Position it directly above the input */
+    bottom: 100%;
     left: 0;
     right: 0;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    max-height: calc(5 * 40px); /* Limit height to fit 5 items */
-    overflow-y: auto; /* Allow scrolling if necessary */
-    z-index: 10; /* Ensure suggestions are above other content */
+    max-height: calc(5 * 40px);
+    overflow-y: auto;
+    z-index: 10; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -136,7 +136,7 @@
     cursor: pointer;
     background-color: white;
     transition: background-color 0.3s;
-    font-size: 0.9em; /* Slightly smaller font size for suggestions */
+    font-size: 0.9em; 
 }
 
 .suggestion-item:hover {
@@ -148,7 +148,7 @@
     color: white;
 }
 
-/* Style for the spell-corrections container */
+
 .spell-corrections-container {
     margin-top: 10px;
     padding: 10px;
@@ -157,15 +157,12 @@
     background-color: #f9f9f9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* Title for the spell corrector suggestions */
 .spell-corrections-container h4 {
     font-size: 14px;
     color: #555;
     margin: 0 0 8px;
 }
 
-/* Individual correction items */
 .correction-item {
     padding: 8px;
     margin: 4px 0;
@@ -174,24 +171,20 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Normal state */
 .correction-item:hover {
-    background-color: #e0f7fa; /* Light cyan hover effect */
-    transform: scale(1.02); /* Slightly enlarge on hover */
+    background-color: #e0f7fa; 
+    transform: scale(1.02); 
 }
 
-/* Highlighted or active state */
 .correction-item.highlighted {
-    background-color: #00796b; /* Teal color for active state */
-    color: #fff; /* White text for contrast */
+    background-color: #00796b; 
+    color: #fff;
 }
 
-/* Add spacing between suggestions and the input box */
 .chat-input {
     margin-bottom: 20px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .chat-container {
         width: 90%;

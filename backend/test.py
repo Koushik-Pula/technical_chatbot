@@ -19,7 +19,6 @@ with open("../corpus/data_mid_2.json", 'r') as file:
 
 
 
-# Initialize the Trie
 trie = Trie()
 with open('../corpus/words.json', 'r') as file:
     words = json.load(file)
@@ -54,8 +53,7 @@ def spell_correct():
     if not word:
         return jsonify([])
 
-    # Find closest matches based on edit distance 
-    corrections = get_close_matches(word, words, n=3, cutoff=0.6)  # Adjust cutoff for tolerance
+    corrections = get_close_matches(word, words, n=3, cutoff=0.6) 
     response = make_response(jsonify(corrections))
     response.headers.add('Access-Control-Allow-Origin', '*') 
     return response

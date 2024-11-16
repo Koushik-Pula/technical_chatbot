@@ -2,8 +2,8 @@
 ## Start the project by creating a virtual environment with command "python/python3 -m venv vir", then activate it. 
 
 --> Starting front-end part
-    * navigate to "cd nlp-chat-bot" 
-    * Download the nodemoduels with the command "npm install" 
+    * navigate to "cd ChatBot" 
+    * Download the nodemodules with the command "npm install" 
     * Then start the project by entering "npm start" 
     * You can see a chatbot loaded on your browser, don't use it unless you run the backend part of it. 
 

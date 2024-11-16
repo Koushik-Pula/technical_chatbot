@@ -24,11 +24,8 @@ def get_close_matches(word, corpus, n=3, cutoff=0.6):
             return 1.0
         return 1 - (levenshtein_distance(w1, w2) / max_len)
 
-    # Calculate similarity for all words in the corpus
     matches = [(candidate, similarity_score(word, candidate)) for candidate in corpus]
 
-    # Filter by cutoff and sort by similarity score (descending)
     matches = [match[0] for match in sorted(matches, key=lambda x: x[1], reverse=True) if match[1] >= cutoff]
-
-    # Return the top `n` matches
+    
     return matches[:n]

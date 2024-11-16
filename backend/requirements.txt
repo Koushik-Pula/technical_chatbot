@@ -1,4 +1,5 @@
 flask 
-requests
-jsonify
-numpy
+flask_cors
+pandas
+tensorflow
+
