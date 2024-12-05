@@ -12,9 +12,6 @@ from TFIDF import TFIDFVectorizer, CosineSimilarity
 import pickle
 import json
 
-
-
-
 loaded_model = load_model('Model_Results_test/my_model.keras')
 
 max_len = 20
@@ -48,11 +45,7 @@ def pipeline(input_phrase):
     obj = porter_stemmer(tokenised_phrase=obj)
     obj = obj.get_stemmed_tokens() 
     print(f"After stemming with porters algorithm: {obj}") 
-
-
     return obj
-
-
 
 def get_predicted_class(sentence):
     refined_sentence = pipeline(input_phrase=sentence)
@@ -64,10 +57,6 @@ def get_predicted_class(sentence):
     print(f"Predicted Class: {predicted_class}") 
     return predicted_class 
 
-
-
-
-
 # Load the JSON data
 with open('updated_corpus/updated_corpus.json', 'r') as f:
     data = json.load(f) 
@@ -76,7 +65,6 @@ with open('updated_corpus/updated_corpus.json', 'r') as f:
 # Define a function to find the response for a specific tag
 def get_response_for_tag(tag, user_phrase):
     sim_values = []
-
     # Traverse through all intents to find the matching tag
     for intent in data['intents']:
         if intent['tag'] == tag:
