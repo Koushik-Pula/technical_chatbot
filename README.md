@@ -22,16 +22,7 @@ Use our techbot after setting up the front-end and backend running successfully.
 ### Project inforamtion -- Group number - 11 
 
 
-### Group objective - Chatbot for Customer support
 
-
-
-#### Group Details: 
-
-1. Anudeep Tippabathuni - S20220010226 
-2. Suguru Sai Kiran - S20220010212 
-3. Tharun Kumar L - S20220010123 
-4. Koushik Pula - S20220010156 
 
 
 ### Methodology
@@ -105,7 +96,7 @@ We all four started off with collecting dataset manually from websites like, "st
 - The model tracks accuracy as a metric during training.
 
 ### 8. **Model Training**:
-- The model is trained for 200 epochs using a batch size of 4. During each epoch, the model learns from the training data and evaluates its performance on the validation data after each epoch.
+- The model is trained for 300 epochs using a batch size of 4. During each epoch, the model learns from the training data and evaluates its performance on the validation data after each epoch.
 
 ### 9. **Model Evaluation**:
 - After training, the model is evaluated on the validation set to compute **validation loss** and **validation accuracy**.
