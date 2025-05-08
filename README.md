@@ -27,7 +27,7 @@ Use our techbot after setting up the front-end and backend running successfully.
 
 ### Methodology
 
-We all four started off with collecting dataset manually from websites like, "stack overflow", "linus tech tips" and "microsoft support". It's stored in "corpus" folder with structure ,
+We started off with collecting dataset manually from websites like, "stack overflow", "linus tech tips" and "microsoft support". It's stored in "corpus" folder with structure ,
 
 
 """"" 
