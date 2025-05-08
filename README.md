@@ -19,7 +19,7 @@ Use our techbot after setting up the front-end and backend running successfully.
 
 
 
-### Project inforamtion -- Group number - 11 
+### Project inforamtion 
 
 
 
